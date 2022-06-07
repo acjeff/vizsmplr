@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  overflow: hidden;
+}
+
+video {
+  float: left;
 }
 
 .App-logo {
