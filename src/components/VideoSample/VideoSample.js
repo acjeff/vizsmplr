@@ -38,7 +38,7 @@ class VideoSample extends React.Component {
                       loop muted
                       onTimeUpdate={() => {
                           if (this.videoSampleRef.current && this.videoSampleRef.current.currentTime > this.props.end) {
-                              this.videoSampleRef.current.pause();
+                              this.videoSampleRef.current.currentTime = this.props.start;
                           }
                       }}>
             <source src={video_url} type="video/mp4"/>
