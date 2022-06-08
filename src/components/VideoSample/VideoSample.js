@@ -1,6 +1,5 @@
 import React from 'react';
 import 'react-html5video/dist/styles.css';
-
 const video_url = 'https://firebasestorage.googleapis.com/v0/b/vizsmplr.appspot.com/o/kendricklamarn.mp4?alt=media&token=ccf53a44-5a78-49ca-9c56-6de335e09fbd';
 
 class VideoSample extends React.Component {
@@ -30,11 +29,16 @@ class VideoSample extends React.Component {
 
     render() {
 
-        return <video ref={this.videoSampleRef} style={{
+        return <div style={{
             pointerEvents: 'none',
             maxWidth: this.props.w + '%',
-            maxHeight: this.props.h + '%'
-        }}
+            maxHeight: this.props.h + '%',
+            position: 'relative',
+            overflow: 'hidden',
+            display: 'flex'
+        }} className={'video-wrapper'}>
+            <p>{this.props.keyName}</p>
+            <video style={{maxWidth: '100%', maxHeight: '100%'}} ref={this.videoSampleRef}
                       loop muted
                       onTimeUpdate={() => {
                           if (this.videoSampleRef.current && this.videoSampleRef.current.currentTime > this.props.end) {
@@ -42,7 +46,7 @@ class VideoSample extends React.Component {
                           }
                       }}>
             <source src={video_url} type="video/mp4"/>
-        </video>
+        </video></div>
     }
 }
 

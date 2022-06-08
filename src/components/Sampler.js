@@ -9,8 +9,10 @@ class Sampler extends React.Component {
             samplesToShow: [],
             update: 0
         };
+        this.keysDown = {}
         this.keyDown = this.keyDown.bind(this);
         this.keyUp = this.keyUp.bind(this);
+        this.removeVideoSample = this.removeVideoSample.bind(this);
 
         this.samples = [
             {
@@ -127,21 +129,28 @@ class Sampler extends React.Component {
 
     keyDown(e) {
         console.log(e, ' : key down');
+        if (!this.keyDown[e.keyCode]) {
+            this.keyDown[e.keyCode] = 1;
+        } else {
+            this.keyDown[e.keyCode]++;
+            return;
+        }
         let sample = this.samples.find((s) => s.code === e.keyCode);
         let sampleAlreadyThere = this.state.samplesToShow.find((s) => s.code === e.keyCode);
         if (!sampleAlreadyThere && sample) {
             console.log('Add it in');
+            sample.key = e.key;
             this.state.samplesToShow.push(sample);
             let wh = this.rowColumnNumber(this.state.samplesToShow.length);
             console.log(this.state.samplesToShow, ' : this.state.samplesToShow')
             this.setState({update: this.state.update + 1, w: wh.w, h: wh.h})
+        } else if (sampleAlreadyThere && sample) {
+            this.removeVideoSample(e.keyCode);
         }
     }
 
-    keyUp(e) {
-        // console.log(e, ' : key up');
-        let keyCode = e.keyCode;
-        let index = this.state.samplesToShow.findIndex(function(o){
+    removeVideoSample(keyCode) {
+        let index = this.state.samplesToShow.findIndex(function (o) {
             return o.code === keyCode;
         })
         if (index !== -1) this.state.samplesToShow.splice(index, 1);
@@ -149,14 +158,32 @@ class Sampler extends React.Component {
         this.setState({update: this.state.update + 1, w: wh.w, h: wh.h})
     }
 
+    keyUp(e) {
+        // console.log(e, ' : key up');
+        // let keyCode = e.keyCode;
+        console.log(this.keyDown[e.keyCode]);
+        let keyPress = this.keyDown[e.keyCode];
+        if (keyPress > 1) {
+            this.removeVideoSample(e.keyCode)
+        }
+        this.keyDown[e.keyCode] = null;
+    }
+
     rowColumnNumber(x) {
         //CODE TO CALCULATE ROW/COLUMN NUMBER
-        let columns = Math.ceil(Math.sqrt(x));
-        let lines = Math.ceil(x / columns);
-        return {
-            w: (1 / columns) * 100,
-            h: (1 / lines) * 100
-        };
+        if (x !== 3) {
+            let columns = Math.ceil(Math.sqrt(x));
+            let lines = Math.ceil(x / columns);
+            return {
+                w: (1 / columns) * 100,
+                h: (1 / lines) * 100
+            };
+        } else {
+            return {
+                w: 33.33,
+                h: 100
+            }
+        }
     }
 
     componentDidMount() {
@@ -170,8 +197,9 @@ class Sampler extends React.Component {
     }
 
     render() {
-        return this.state.samplesToShow.map((s, i) => {
-            return (<VideoSample key={s.code} w={this.state.w} h={this.state.h} start={s.start} end={s.end}/>)
+        return this.state.samplesToShow.sort((a, b) => a.code - b.code).map((s, i) => {
+            return (<VideoSample key={s.code} keyName={s.key} w={this.state.w} h={this.state.h} start={s.start}
+                                 end={s.end}/>)
         })
     }
 }
