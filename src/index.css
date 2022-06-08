@@ -17,10 +17,31 @@ code {
     monospace;
 }
 
+.loading-wrapper {
+  position: relative;
+  width: 20%;
+  border: 1px solid white;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  left: 50%;
+  margin-left: -10%;
+  overflow: hidden;
+}
+
+.loading-wrapper span {
+  background: white;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  color: black;
+  padding-left: 5px;
+}
+
 .App, #root {
   display: flex;
   flex: 1 1;
-  justify-content: space-between;
+  justify-content: space-evenly;
   overflow: hidden;
   flex-wrap: wrap;
   height: 100%;

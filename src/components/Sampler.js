@@ -1,5 +1,6 @@
 import React from 'react';
 import VideoSample from "./VideoSample/VideoSample";
+const video_length = 350;
 
 class Sampler extends React.Component {
 
@@ -121,6 +122,8 @@ class Sampler extends React.Component {
             }
         ]
         this.samples = this.samples.map((s, i) => {
+            s.start = ((video_length / this.samples.length) * i);
+            s.end = ((video_length / this.samples.length) * (i + 1))
             s.code = 65 + i;
             return s;
         });
