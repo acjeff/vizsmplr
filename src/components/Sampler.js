@@ -1,6 +1,10 @@
 import React from 'react';
 import VideoSample from "./VideoSample/VideoSample";
+// const video_url = 'https://firebasestorage.googleapis.com/v0/b/vizsmplr.appspot.com/o/kendricklamarn.mp4?alt=media&token=ccf53a44-5a78-49ca-9c56-6de335e09fbd';
 
+// <video preload={'auto'} style={{display: 'none'}} loop muted>
+//     <source src={video_url} type="video/mp4"/>
+// </video>
 class Sampler extends React.Component {
 
     constructor(props) {
@@ -129,6 +133,10 @@ class Sampler extends React.Component {
 
     keyDown(e) {
         console.log(e, ' : key down');
+        if (e.code === 'Escape') {
+            this.setState({samplesToShow: []})
+            return;
+        }
         if (!this.keyDown[e.keyCode]) {
             this.keyDown[e.keyCode] = 1;
         } else {
@@ -161,6 +169,7 @@ class Sampler extends React.Component {
     keyUp(e) {
         // console.log(e, ' : key up');
         // let keyCode = e.keyCode;
+        if (e.code === 'Escape') return;
         console.log(this.keyDown[e.keyCode]);
         let keyPress = this.keyDown[e.keyCode];
         if (keyPress > 1) {
