@@ -1,6 +1,7 @@
 import React from 'react';
 import Sampler from "./Sampler";
 import AudioPlayer from "./AudioPlayer";
+
 const video_url = 'https://firebasestorage.googleapis.com/v0/b/vizsmplr.appspot.com/o/kendricklamarn.mp4?alt=media&token=ccf53a44-5a78-49ca-9c56-6de335e09fbd';
 
 class PreloadVideo extends React.Component {
@@ -20,7 +21,7 @@ class PreloadVideo extends React.Component {
         // req.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         req.responseType = 'blob';
         console.log('load video')
-        req.onload = function() {
+        req.onload = function () {
             // Onload is triggered even on 404
             // so we need to check the status code
             if (this.status === 200) {
@@ -32,7 +33,7 @@ class PreloadVideo extends React.Component {
                 self.setState({video_src: vid});
             }
         }
-        req.onerror = function(e) {
+        req.onerror = function (e) {
             console.log(e, ' : error');
             // Error
         }
@@ -49,9 +50,13 @@ class PreloadVideo extends React.Component {
                 (<Sampler videoSrc={this.state.video_src}/>),
                 (<AudioPlayer/>)
             ]
-        }
-        else {
-            return <p style={{color: 'white'}}>LOADING...</p>
+        } else {
+            return <p style={{
+                color: 'white',
+                position: 'fixed',
+                width: '100%',
+                top: '50%'
+            }}>LOADING...</p>
         }
     }
 }
