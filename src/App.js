@@ -1,13 +1,11 @@
 import './App.css';
-import Sampler from "./components/Sampler";
-import AudioPlayer from "./components/AudioPlayer";
+import PreloadVideo from "./components/PreloadVideo";
 
 function App() {
-
+    console.log("Load App");
     return (
         <div className="App" style={{backgroundColor: 'black'}}>
-            <Sampler/>
-            <AudioPlayer/>
+            <PreloadVideo/>
         </div>
     );
 }

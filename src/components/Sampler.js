@@ -1,10 +1,6 @@
 import React from 'react';
 import VideoSample from "./VideoSample/VideoSample";
-// const video_url = 'https://firebasestorage.googleapis.com/v0/b/vizsmplr.appspot.com/o/kendricklamarn.mp4?alt=media&token=ccf53a44-5a78-49ca-9c56-6de335e09fbd';
 
-// <video preload={'auto'} style={{display: 'none'}} loop muted>
-//     <source src={video_url} type="video/mp4"/>
-// </video>
 class Sampler extends React.Component {
 
     constructor(props) {
@@ -207,7 +203,7 @@ class Sampler extends React.Component {
 
     render() {
         return this.state.samplesToShow.sort((a, b) => a.code - b.code).map((s, i) => {
-            return (<VideoSample key={s.code} keyName={s.key} w={this.state.w} h={this.state.h} start={s.start}
+            return (<VideoSample videoSrc={this.props.videoSrc} key={s.code} keyName={s.key} w={this.state.w} h={this.state.h} start={s.start}
                                  end={s.end}/>)
         })
     }
