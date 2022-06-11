@@ -205,7 +205,7 @@ class Sampler extends React.Component {
     }
 
     render() {
-        return this.state.samplesToShow.sort((a, b) => a.code - b.code).map((s, i) => {
+        return this.state.samplesToShow.map((s, i) => {
             return (<VideoSample videoSrc={this.props.videoSrc} key={s.code} keyName={s.key} w={this.state.w} h={this.state.h} start={s.start}
                                  end={s.end}/>)
         })
