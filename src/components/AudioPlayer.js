@@ -38,7 +38,7 @@ class AudioPlayer extends React.Component {
     render() {
         return <div className={'audio-wrapper'}>
             <p onClick={this.playPause}>{this.state.playing ? 'Pause' : 'Play'}</p>
-            <audio onCanPlayThrough={this.playPause} ref={this.audioRef} style={{width: '100%', position: 'fixed', bottom: 0, pointerEvents: 'none', opacity: 0}}
+            <audio ref={this.audioRef} style={{width: '100%', position: 'fixed', bottom: 0, pointerEvents: 'none', opacity: 0}}
                    src={audio_url}/>
         </div>
     }

@@ -171,7 +171,7 @@ class Sampler extends React.Component {
         if (e.code === 'Escape') return;
         console.log(this.keyDown[e.keyCode]);
         let keyPress = this.keyDown[e.keyCode];
-        if (keyPress > 1) {
+        if (!e.shiftKey) {
             this.removeVideoSample(e.keyCode)
         }
         this.keyDown[e.keyCode] = null;

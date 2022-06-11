@@ -60,7 +60,10 @@ class PreloadVideo extends React.Component {
                 position: 'fixed',
                 width: '100%',
                 top: '50%'
-            }}><div className={'loading-wrapper'}><span style={{width: this.state.loading + '%', textAlign: 'center'}}>LOADING</span></div></div>
+            }}>
+                <div className={'loading-wrapper'}><span
+                    style={{width: this.state.loading + '%', textAlign: 'center'}}>LOADING</span></div>
+            </div>
         }
     }
 }
