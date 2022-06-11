@@ -1,6 +1,7 @@
 import React from 'react';
 import VideoSample from "./VideoSample/VideoSample";
 const video_length = 350;
+const number_of_samples = 26
 
 class Sampler extends React.Component {
 
@@ -14,119 +15,14 @@ class Sampler extends React.Component {
         this.keyDown = this.keyDown.bind(this);
         this.keyUp = this.keyUp.bind(this);
         this.removeVideoSample = this.removeVideoSample.bind(this);
-
-        this.samples = [
-            {
-                start: 15,
-                end: 25
-            },
-            {
-                start: 25.5,
-                end: 30
-            },
-            {
-                start: 31,
-                end: 35
-            },
-            {
-                start: 36,
-                end: 37.9
-            },
-            {
-                start: 40,
-                end: 45
-            },
-            {
-                start: 50,
-                end: 55
-            },
-            {
-                start: 60,
-                end: 65
-            },
-            {
-                start: 70,
-                end: 75
-            },
-            {
-                start: 80,
-                end: 85
-            },
-            {
-                start: 90,
-                end: 95
-            },
-            {
-                start: 100,
-                end: 105
-            },
-            {
-                start: 110,
-                end: 115
-            },
-            {
-                start: 120,
-                end: 125
-            },
-            {
-                start: 130,
-                end: 135
-            },
-            {
-                start: 140,
-                end: 145
-            },
-            {
-                start: 150,
-                end: 155
-            },
-            {
-                start: 160,
-                end: 165
-            },
-            {
-                start: 170,
-                end: 175
-            },
-            {
-                start: 180,
-                end: 185
-            },
-            {
-                start: 190,
-                end: 195
-            },
-            {
-                start: 145,
-                end: 150
-            },
-            {
-                start: 135,
-                end: 140
-            },
-            {
-                start: 190,
-                end: 200
-            },
-            {
-                start: 25,
-                end: 30
-            },
-            {
-                start: 75,
-                end: 80
-            },
-            {
-                start: 195,
-                end: 200
-            }
-        ]
-        this.samples = this.samples.map((s, i) => {
-            s.start = ((video_length / this.samples.length) * i);
-            s.end = ((video_length / this.samples.length) * (i + 1))
-            s.code = 65 + i;
-            return s;
-        });
+        this.samples = [];
+        for (let i = 0; i < number_of_samples; i++) {
+            this.samples.push({
+                start: Math.round(((video_length / number_of_samples) * i)),
+                end: Math.round(((video_length / number_of_samples) * (i + 1))),
+                code: 65 + i
+            });
+        }
         console.log(this.samples, ' : samples');
     }
 
@@ -144,7 +40,7 @@ class Sampler extends React.Component {
         }
         let sample = this.samples.find((s) => s.code === e.keyCode);
         let sampleAlreadyThere = this.state.samplesToShow.find((s) => s.code === e.keyCode);
-        if (!sampleAlreadyThere && sample) {
+        if (!sampleAlreadyThere && sample && this.state.samplesToShow.length < 3) {
             console.log('Add it in');
             sample.key = e.key;
             this.state.samplesToShow.push(sample);
@@ -166,11 +62,9 @@ class Sampler extends React.Component {
     }
 
     keyUp(e) {
-        // console.log(e, ' : key up');
-        // let keyCode = e.keyCode;
         if (e.code === 'Escape') return;
         console.log(this.keyDown[e.keyCode]);
-        let keyPress = this.keyDown[e.keyCode];
+        // let keyPress = this.keyDown[e.keyCode];
         if (!e.shiftKey) {
             this.removeVideoSample(e.keyCode)
         }

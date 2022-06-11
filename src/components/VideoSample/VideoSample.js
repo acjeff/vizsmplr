@@ -37,7 +37,6 @@ class VideoSample extends React.Component {
             overflow: 'hidden',
             display: 'flex'
         }} className={'video-wrapper'}>
-            <p>{this.props.keyName}</p>
             <video muted style={{maxWidth: '100%', maxHeight: '100%'}} ref={this.videoSampleRef}
                       onTimeUpdate={() => {
                           if (this.videoSampleRef.current && this.videoSampleRef.current.currentTime > this.props.end) {
