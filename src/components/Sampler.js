@@ -1,6 +1,5 @@
 import React from 'react';
 import VideoSample from "./VideoSample/VideoSample";
-const video_length = 350;
 const number_of_samples = 26
 
 class Sampler extends React.Component {
@@ -18,8 +17,8 @@ class Sampler extends React.Component {
         this.samples = [];
         for (let i = 0; i < number_of_samples; i++) {
             this.samples.push({
-                start: Math.round(((video_length / number_of_samples) * i)),
-                end: Math.round(((video_length / number_of_samples) * (i + 1))),
+                start: Math.round(((this.props.videoLength / number_of_samples) * i)),
+                end: Math.round(((this.props.videoLength / number_of_samples) * (i + 1))),
                 code: 65 + i
             });
         }

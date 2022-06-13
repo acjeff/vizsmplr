@@ -2,9 +2,8 @@ import React from 'react';
 import Sampler from "./Sampler";
 import AudioPlayer from "./AudioPlayer";
 
-const video_url = 'https://firebasestorage.googleapis.com/v0/b/vizsmplr.appspot.com/o/kendrick_720.mp4?alt=media&token=a8c60bb4-f397-424d-bcea-f22dfb6e93bf';
-
-// const video_url = 'https://firebasestorage.googleapis.com/v0/b/vizsmplr.appspot.com/o/kendricklamarn.mp4?alt=media&token=ccf53a44-5a78-49ca-9c56-6de335e09fbd';
+const kendrick_video_url = 'https://firebasestorage.googleapis.com/v0/b/vizsmplr.appspot.com/o/kendrick_720.mp4?alt=media&token=a8c60bb4-f397-424d-bcea-f22dfb6e93bf';
+const rosalia_video_url = 'https://firebasestorage.googleapis.com/v0/b/vizsmplr.appspot.com/o/rosalia-saoko.mp4?alt=media&token=44c0c141-3e8c-4e6b-ba7d-140310cef7df';
 
 class PreloadVideo extends React.Component {
 
@@ -13,13 +12,23 @@ class PreloadVideo extends React.Component {
         this.state = {
             playing: false
         };
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        let v = urlParams.get('v');
+        this.audioRef = React.createRef();
+        this.video_url = kendrick_video_url;
+        this.videoLength = 345;
+        if (v === 'rosalia') {
+            this.videoLength = 283;
+            this.video_url = rosalia_video_url;
+        }
     }
 
     componentDidMount() {
         if (this.loadingVideo) return;
         let self = this;
         let req = new XMLHttpRequest();
-        req.open('GET', video_url, true);
+        req.open('GET', this.video_url, true);
         // req.setRequestHeader('Access-Control-Allow-Origin', '*');
         // req.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         req.responseType = 'blob';
@@ -51,7 +60,7 @@ class PreloadVideo extends React.Component {
     render() {
         if (this.state.video_src) {
             return [
-                (<Sampler key={1} videoSrc={this.state.video_src}/>),
+                (<Sampler key={1} videoSrc={this.state.video_src} videoLength={this.videoLength}/>),
                 (<AudioPlayer key={2}/>)
             ]
         } else {
